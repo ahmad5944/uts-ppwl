@@ -1,16 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
-    <x-breadcrumb :items="[
-        ['label' => '<i class=\'bx bx-home\'></i> Dashboard', 'url' => route('dashboard')],
-        ['label' => 'Kategori', 'url' => route('categories.index')],
-        ['label' => 'Edit', 'url' => '#'],
-    ]" color="warning" />
+<div class="container-fluid px-0">
+    <div class="bg-gradient-warning position-relative rounded-4 mb-4 p-4 text-white" style="background: linear-gradient(87deg, #f6c23e 0, #fb6340 100%); min-height: 120px;">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <div>
+                <h2 class="fw-bold mb-1">Edit Kategori</h2>
+                <p class="mb-0">Form untuk mengedit data kategori produk.</p>
+            </div>
+            <div class="mt-3 mt-md-0">
+                <x-breadcrumb :items="[
+                    ['label' => '<i class=\'bx bx-home\'></i> Dashboard', 'url' => route('dashboard')],
+                    ['label' => 'Kategori', 'url' => route('categories.index')],
+                    ['label' => 'Edit Kategori', 'url' => '#'],
+                ]" color="warning" />
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow border-0 rounded-4">
-                <div class="card-header bg-gradient-warning text-white rounded-top-3" style="background: linear-gradient(87deg, #f6c23e 0, #fb6340 100%) !important;">
+        <div class="col-12">
+            <div class="card border-0 rounded-4">
+                <div class="card-header bg-gradient-warning text-white rounded-top-4" style="background: linear-gradient(87deg, #f6c23e 0, #fb6340 100%) !important;">
                     <h4 class="mb-0">Edit Kategori</h4>
                 </div>
                 <div class="card-body">

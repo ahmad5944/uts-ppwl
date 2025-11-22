@@ -22,7 +22,7 @@
 		.welcome-container {
 			background: rgba(255,255,255,0.95);
 			border-radius: 24px;
-			box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+			rgba(0,0,0,0.08);
 			padding: 48px 32px 48px 48px;
 			max-width: 480px;
 			margin: 40px;
@@ -55,7 +55,7 @@
 		}
 	</style>
 </head>
-<body>
+<body style="background-color: #dadadaff;">
 	<div class="welcome-container">
 		<div class="welcome-title">Selamat Datang!</div>
 		<div class="welcome-desc">Ini adalah aplikasi UTS PPWL.<br>Semoga harimu menyenangkan!<br><br>
@@ -64,11 +64,11 @@
 		<div style="margin-top: 32px; text-align:center;">
 			@if (Route::has('login'))
 				@auth
-					<a href="{{ url('/dashboard') }}" style="display:inline-block;padding:12px 32px;background:#f53003;color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:1.1rem;box-shadow:0 2px 8px #0001;transition:background .2s;">Dashboard</a>
+					<a href="{{ url('/dashboard') }}" style="display:inline-block;padding:12px 32px;background:#f53003;color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:1.1rem;transition:background .2s;">Dashboard</a>
 				@else
-					<a href="{{ route('login') }}" style="display:inline-block;padding:12px 32px;background:#222;color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:1.1rem;box-shadow:0 2px 8px #0001;transition:background .2s;margin-right:12px;">Login</a>
+					<a href="{{ route('login') }}" style="display:inline-block;padding:12px 32px;background:#222;color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:1.1rem;transition:background .2s;margin-right:12px;">Login</a>
 					@if (Route::has('register'))
-						<a href="{{ route('register') }}" style="display:inline-block;padding:12px 32px;background:#f53003;color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:1.1rem;box-shadow:0 2px 8px #0001;transition:background .2s;">Register</a>
+						<a href="{{ route('register') }}" style="display:inline-block;padding:12px 32px;background:#f53003;color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:1.1rem;transition:background .2s;">Register</a>
 					@endif
 				@endauth
 			@endif
