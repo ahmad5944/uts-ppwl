@@ -57,3 +57,12 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Database
+
+The database for this project is included in the `database/uts_ppwl.sql` file. You can import this file into your MySQL database to set up the required tables and data.
+
+To import the database:
+1. Open your MySQL client or phpMyAdmin.
+2. Select the database you want to import into.
+3. Import the `database/uts_ppwl.sql` file.
