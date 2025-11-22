@@ -45,13 +45,24 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'harga' => 'required|numeric|min:0',
             'deskripsi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'nama.required' => 'Nama produk wajib diisi.',
             'category_id.required' => 'Kategori wajib dipilih.',
             'category_id.exists' => 'Kategori tidak valid.',
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
+            'gambar.image' => 'File harus berupa gambar.',
+            'gambar.mimes' => 'Format gambar tidak didukung.',
+            'gambar.max' => 'Ukuran gambar maksimal 2MB.',
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $path = $file->store('produk', 'public');
+            $validated['gambar'] = $path;
+        }
+
         Product::create($validated);
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
@@ -85,13 +96,28 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'harga' => 'required|numeric|min:0',
             'deskripsi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'nama.required' => 'Nama produk wajib diisi.',
             'category_id.required' => 'Kategori wajib dipilih.',
             'category_id.exists' => 'Kategori tidak valid.',
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
+            'gambar.image' => 'File harus berupa gambar.',
+            'gambar.mimes' => 'Format gambar tidak didukung.',
+            'gambar.max' => 'Ukuran gambar maksimal 2MB.',
         ]);
+
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($product->gambar && \Storage::disk('public')->exists($product->gambar)) {
+                \Storage::disk('public')->delete($product->gambar);
+            }
+            $file = $request->file('gambar');
+            $path = $file->store('produk', 'public');
+            $validated['gambar'] = $path;
+        }
+
         $product->update($validated);
         return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate.');
     }

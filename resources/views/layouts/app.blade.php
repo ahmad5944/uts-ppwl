@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body style="background: #e6e6e6ff;">
     <div id="app">
-        <x-layout.navbar />
-        <div class="container-fluid">
-            <div class="row">
+        <div class="container-fluid px-0">
+            <x-layout.navbar />
+        </div>
+        <div class="container-fluid px-0">
+            <div class="row g-0">
                 <div class="col-md-2 p-0">
                     <x-layout.sidebar />
                 </div>
@@ -24,7 +26,9 @@
                 </div>
             </div>
         </div>
-        <x-layout.footer />
+        <div class="container-fluid px-0">
+            <x-layout.footer />
+        </div>
     </div>
     <!-- Sneat JS (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
