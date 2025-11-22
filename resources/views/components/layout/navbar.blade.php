@@ -1,39 +1,67 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white bg-opacity-75 border-0 rounded-4 mt-3 mx-3 px-3 py-2" style="backdrop-filter: blur(2px);">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="/">
-            <i class='bx bx-layer'></i> UTS PPWL
-        </a>
-        @auth
-            <div 
-                x-data 
-                class="d-flex align-items-center gap-2 ms-auto"
-            >
-                <button 
-                    type="button"
-                    class="btn btn-link d-flex align-items-center gap-2 text-decoration-none text-dark"
-                    @click.prevent="
-                        Swal.fire({
-                            title: 'Logout?',
-                            text: 'Apakah Anda yakin ingin logout?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Logout',
-                            cancelButtonText: 'Batal',
-                            reverseButtons: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $refs.logoutForm.submit();
-                            }
-                        });
-                    "
-                >
-                    <i class="bx bx-user-circle fs-3"></i>
-                    <span class="fw-semibold">{{ Auth::user()->name }}</span>
-                </button>
-                <form x-ref="logoutForm" method="POST" action="{{ route('logout') }}" class="d-none">
-                    @csrf
-                </form>
-            </div>
-        @endauth
-    </div>
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-
+items-center bg-navbar-theme"
+id="layout-navbar">
+<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-
+none">
+<a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+<i class="bx bx-menu bx-sm"></i>
+</a>
+</div>
+<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+<ul class="navbar-nav flex-row align-items-center ms-auto">
+<!-- User -->
+<li class="nav-item navbar-dropdown dropdown-user dropdown">
+<a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-
+bs-toggle="dropdown">
+<div class="avatar avatar-online">
+<img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-
+circle" />
+</div>
+</a>
+<ul class="dropdown-menu dropdown-menu-end">
+<li>
+    <a class="dropdown-item" href="#">
+<div class="d-flex">
+<div class="flex-shrink-0 me-3">
+<div class="avatar avatar-online">
+<img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto
+rounded-circle" />
+</div>
+</div>
+<div class="flex-grow-1">
+<span class="fw-semibold d-block">John Doe</span>
+<small class="text-muted">Admin</small>
+</div>
+</div>
+</a>
+</li>
+<li>
+<div class="dropdown-divider"></div>
+</li>
+<li>
+<a class="dropdown-item" href="#">
+<i class="bx bx-user me-2"></i>
+<span class="align-middle">My Profile</span>
+</a>
+</li>
+<li>
+<a class="dropdown-item" href="#">
+<i class="bx bx-cog me-2"></i>
+<span class="align-middle">Settings</span>
+</a>
+</li>
+<li>
+<div class="dropdown-divider"></div>
+</li>
+<li>
+<a class="dropdown-item" href="auth-login-basic.html">
+<i class="bx bx-power-off me-2"></i>
+<span class="align-middle">Log Out</span>
+</a>
+</li>
+</ul>
+</li>
+<!--/ User -->
+</ul>
+</div>
 </nav>

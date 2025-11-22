@@ -1,102 +1,92 @@
 @extends('layouts.app')
-
+@section('title', 'Daftar Produk')
 @section('content')
-<div class="container-fluid px-0">
-    <div class="bg-gradient-primary position-relative rounded-4 mb-4 p-4 text-white" style="background: linear-gradient(87deg, #11cdef 0, #1171ef 100%); min-height: 120px;">
-        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-            <div>
-                <h2 class="fw-bold mb-1">Produk</h2>
-                <p class="mb-0">Daftar produk yang tersedia di sistem.</p>
-            </div>
-            <div class="mt-3 mt-md-0">
-                <x-breadcrumb :items="[
-                    ['label' => '<i class=\'bx bx-home\'></i> Dashboard', 'url' => route('dashboard')],
-                    ['label' => 'Produk', 'url' => route('products.index')],
-                ]" />
-            </div>
-        </div>
-    </div>
-    <div class="card border-0 mb-4 bg-white rounded-4">
-        <div class="card-body pb-0">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 gap-2">
-                <form method="GET" action="{{ route('products.index') }}" class="w-100 w-md-auto">
-                    <div class="input-group input-group-lg">
-                        <input type="text" name="search" class="form-control rounded-start-4" placeholder="Cari produk..." value="{{ request('search') }}" style="font-size:1.1rem;">
-                        <button class="btn btn-outline-primary rounded-end-4" type="submit"><i class='bx bx-search'></i></button>
-                    </div>
-                </form>
-                <a href="{{ route('products.create') }}" class="btn btn-primary rounded-4" style="font-size:1.15rem;padding:10px 28px;"><i class='bx bx-plus'></i></a>
-            </div>
-            <div class="table-responsive">
-                <table class="table align-middle table-hover table-striped mb-3 rounded-4 overflow-hidden" style="background:#fff;">
-                    <thead class="bg-light">
-                        <tr style="font-weight:600;">
-                            <th>#</th>
-                            <th>Gambar</th>
-                            <th>Nama</th>
-                            <th>Kategori</th>
-                            <th>Harga</th>
-                            <th>Deskripsi</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($products as $product)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    @if($product->gambar)
-                                        <img src="{{ asset('storage/'.$product->gambar) }}" alt="{{ $product->nama }}" class="rounded" style="width: 56px; height: 56px; object-fit: cover;">
-                                    @else
-                                        <span class="text-muted">-</span>
-                                    @endif
-                                </td>
-                                <td class="fw-semibold">{{ $product->nama }}</td>
-                                <td>{{ $product->category->nama ?? '-' }}</td>
-                                <td>Rp {{ number_format($product->harga, 0, ',', '.') }}</td>
-                                <td class="text-truncate" style="max-width: 200px;">{{ $product->deskripsi }}</td>
-                                <td>
-                                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning rounded-3"><i class='bx bx-edit'></i></a>
-                                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger btn-delete rounded-3"><i class='bx bx-trash'></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center">Tidak ada data.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="container-xxl flex-grow-1 container-p-y">
+	{{-- Breadcrumb dinamis --}}
+	<x-breadcrumb :items=" [
+        'Produk' => route('products.index'),
+        'Daftar Produk' => ''
+    ]" />
+	<!-- Responsive Table -->
+	<div class="card">
+		<div class="card-header d-flex justify-content-between align-items-center">
+			<h5 class="mb-0">Daftar Produk</h5>
+			<!-- Search Form -->
+			<form action="{{ route('products.index') }}" method="GET" class="d-flex" style="width: 300px;">
+				<input type="text" name="search" class="form-control me-2" placeholder="Cari..." value="{{ request('search') }}">
+				<button class="btn btn-primary btn-sm" type="submit">
+					<i class="bx bx-search"></i>
+				</button>
+			</form>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive text-nowrap">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Foto</th>
+							<th>Nama</th>
+							<th>Deskripsi</th>
+							<th>Harga</th>
+							<th>Stok</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td><img src="../assets/img/avatars/5.png" alt="Produk 1" class="img-thumbnail" width="80"></td>
+							<td>Meja Kantor Kayu</td>
+							<td>Meja kantor berbahan kayu jati berkualitas tinggi.</td>
+							<td>Rp 2.500.000</td>
+							<td>10</td>
+							<td>
+								<a href="#" class="btn btn-sm btn-primary"><i class="bx bx-edit"></i></a>
+								<a href="#" class="btn btn-sm btn-danger"><i class="bx bx-trash"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td><img src"../assets/img/avatars/5.png" alt="Produk 2" class="img-thumbnail" width="80"></td>
+							<td>Kursi Ergonomis</td>
+							<td>Kursi kantor ergonomis dengan penyangga punggung yang nyaman.</td>
+							<td>Rp 1.250.000</td>
+							<td>15</td>
+							<td>
+								<a href="#" class="btn btn-sm btn-primary"><i class="bx bx-edit"></i></a>
+								<a href="#" class="btn btn-sm btn-danger"><i class="bx bx-trash"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td><img src="../assets/img/avatars/5.png" alt="Produk 3" class="img-thumbnail" width="80"></td>
+							<td>Lemari Arsip Besi</td>
+							<td>Lemari arsip besi 4 pintu untuk menyimpan dokumen penting.</td>
+							<td>Rp 3.750.000</td>
+							<td>5</td>
+							<td>
+								<a href="#" class="btn btn-sm btn-primary"><i class="bx bx-edit"></i></a>
+								<a href="#" class="btn btn-sm btn-danger"><i class="bx bx-trash"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- Pagination -->
+			<div class="mt-3 d-flex justify-content-center">
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						<li class="page-item first"><a class="page-link" href="#"><i class="tf-icon bx bx-chevrons-left"></i></a></li>
+						<li class="page-item prev"><a class="page-link" href="#"><i class="tf-icon bx bx-chevron-left"></i></a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item active"><a class="page-link" href="#">3</a></li>
+						<li class="page-item next"><a class="page-link" href="#"><i class="tf-icon bx bx-chevron-right"></i></a></li>
+						<li class="page-item last"><a class="page-link" href="#"><i class="tf-icon bx bx-chevrons-right"></i></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection
-
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-document.querySelectorAll('.delete-form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        Swal.fire({
-            title: 'Yakin hapus data?',
-            text: 'Data yang dihapus tidak dapat dikembalikan!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ya, hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    });
-});
-</script>
-@endpush
