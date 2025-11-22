@@ -128,6 +128,12 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+
+        // Hapus gambar dari storage jika ada
+        if ($product->gambar && \Storage::disk('public')->exists($product->gambar)) {
+            \Storage::disk('public')->delete($product->gambar);
+        }
+
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }

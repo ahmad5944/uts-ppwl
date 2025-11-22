@@ -1,44 +1,57 @@
 @extends('layouts.app')
-
+@section('title', 'Tambah Kategori')
 @section('content')
-<div class="container-fluid px-0">
-    <div class="bg-gradient-primary position-relative rounded-4 mb-4 p-4 text-white" style="background: linear-gradient(87deg, #11cdef 0, #1171ef 100%); min-height: 120px;">
-        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-            <div>
-                <h2 class="fw-bold mb-1">Tambah Kategori</h2>
-                <p class="mb-0">Form untuk menambah kategori produk baru.</p>
-            </div>
-            <div class="mt-3 mt-md-0">
-                <x-breadcrumb :items="[
-                    ['label' => '<i class=\'bx bx-home\'></i> Dashboard', 'url' => route('dashboard')],
-                    ['label' => 'Kategori', 'url' => route('categories.index')],
-                    ['label' => 'Tambah Kategori', 'url' => '#'],
-                ]" color="primary" />
-            </div>
+<div class="container-xxl flex-grow-1 container-p-y">
+    {{-- Breadcrumb dinamis --}}
+    <x-breadcrumb :items=" [
+        'Kategori' => route('categories.index'),
+        'Tambah Kategori' => ''
+    ]" />
+
+    <div class="row">
+        <div class="mb-4">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                <i class="bx bx-arrow-back"></i> Kembali
+            </a>
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <div class="card border-0 rounded-4">
-                <div class="card-header bg-gradient-primary text-white rounded-top-4" style="background: linear-gradient(87deg, #11cdef 0, #1171ef 100%) !important;">
-                    <h4 class="mb-0">Tambah Kategori</h4>
-                </div>
+
+        <div class="col-xxl">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Kategori</label>
-                            <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror rounded-3" value="{{ old('nama') }}" required>
-                            @error('nama')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="nama">Nama</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bx bx-package"></i></span>
+                                    <input type="text" name="nama" id="nama"
+                                        class="form-control @error('nama') is-invalid @enderror"
+                                        placeholder="Silahkan isi nama kategori"
+                                        value="{{ old('nama') }}" required>
+                                    @error('nama')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary rounded-3">Simpan</button>
-                        <a href="{{ route('categories.index') }}" class="btn btn-secondary rounded-3">Batal</a>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
+@push('scripts')
+
+@endpush
+
 @endsection

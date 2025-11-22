@@ -1,41 +1,58 @@
 @extends('layouts.app')
+@section('title', 'Edit Kategori')
 
 @section('content')
-<div class="container-fluid px-0">
-    <div class="bg-gradient-warning position-relative rounded-4 mb-4 p-4 text-white" style="background: linear-gradient(87deg, #f6c23e 0, #fb6340 100%); min-height: 120px;">
-        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-            <div>
-                <h2 class="fw-bold mb-1">Edit Kategori</h2>
-                <p class="mb-0">Form untuk mengedit data kategori produk.</p>
-            </div>
-            <div class="mt-3 mt-md-0">
-                <x-breadcrumb :items="[
-                    ['label' => '<i class=\'bx bx-home\'></i> Dashboard', 'url' => route('dashboard')],
-                    ['label' => 'Kategori', 'url' => route('categories.index')],
-                    ['label' => 'Edit Kategori', 'url' => '#'],
-                ]" color="warning" />
-            </div>
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    {{-- Breadcrumb dinamis --}}
+    <x-breadcrumb :items="[
+        'Kategori' => route('categories.index'),
+        'Edit Kategori' => ''
+    ]" />
+
+    <div class="row">
+        <div class="mb-4">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                <i class="bx bx-arrow-back"></i> Kembali
+            </a>
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <div class="card border-0 rounded-4">
-                <div class="card-header bg-gradient-warning text-white rounded-top-4" style="background: linear-gradient(87deg, #f6c23e 0, #fb6340 100%) !important;">
-                    <h4 class="mb-0">Edit Kategori</h4>
-                </div>
+
+        <div class="col-xxl">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <form action="{{ route('categories.update', $category) }}" method="POST">
+                    <form action="{{ route('categories.update', $category) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Kategori</label>
-                            <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror rounded-3" value="{{ old('nama', $category->nama) }}" required>
-                            @error('nama')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+
+                        {{-- NAMA --}}
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="nama">Nama</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bx bx-package"></i></span>
+                                    <input
+                                        type="text"
+                                        name="nama"
+                                        id="nama"
+                                        class="form-control @error('nama') is-invalid @enderror"
+                                        value="{{ old('nama', $category->nama) }}"
+                                        placeholder="Silahkan isi nama kategori"
+                                        required
+                                    />
+                                    @error('nama')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-warning text-white rounded-3">Update</button>
-                        <a href="{{ route('categories.index') }}" class="btn btn-secondary rounded-3">Batal</a>
+
+                        <div class="row justify-content-end">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{{ route('categories.index') }}" class="btn btn-secondary">Batal</a>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
